@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // MongoDB configuration and connection
-mongoose.connect(process.env.HEROK_DB_CONNECTION || process.env.DB_CONNECTION, {
+mongoose.connect(process.env.EXTERNAL_DB_CONNECTION || process.env.DB_CONNECTION, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
