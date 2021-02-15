@@ -8,7 +8,7 @@ dotenv.config(); // load .env
 require('./db');
 
 // Starts Express server configuration
-const PORT = process.env.HTTP_PORT;
+const PORT = process.env.PORT || process.env.HTTP_PORT;
 const app = express();
 
 // express middleware
