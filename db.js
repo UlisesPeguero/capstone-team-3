@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 // MongoDB configuration and connection
 mongoose.connect(process.env.EXTERNAL_DB_CONNECTION || process.env.DB_CONNECTION, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
+    useUnifiedTopology: true,
+    useFindAndModify: false
 });
 const connection = mongoose.connection;
 
