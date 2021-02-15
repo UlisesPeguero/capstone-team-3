@@ -4,9 +4,7 @@ const schema = mongoose.Schema;
 let Ticket = new mongoose.Schema({
     number: {
         type: String,
-        required: true,
-        // create random hexadecimal uuid of 4 characters
-        default: Math.random().toString(16).slice(-4).toUpperCase()
+        required: true
     },
     requestor: {
         type: String, 
