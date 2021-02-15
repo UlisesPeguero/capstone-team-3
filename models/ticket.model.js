@@ -33,17 +33,9 @@ let Ticket = new mongoose.Schema({
         type: String,
         required: true,
         default: 'Pending'        
-    },
-    createdAt: {
-        type: Date,
-        required: true,
-        default: new Date()
-    },
-    updatedAt: {
-        type: Date, 
-        required: true,
-        default: new Date()
     }
+}, {
+    timestamps: true
 });
 
 

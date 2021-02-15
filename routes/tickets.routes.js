@@ -9,11 +9,15 @@ router.get('/', (request, response) => {
         , result /* result from search */) => {
         if(error) { // if error is not empty send error message
             response.status(400).json({
+                success: false,
                 message: 'Data was not found',
                 error: error.message || 'An error has ocurred'
             });
         } else { // if there was no error return result
-            response.json(result);
+            response.json({
+                success: true,
+                tickets: result
+            });
         }
     });
 });
@@ -26,11 +30,15 @@ router.get('/:id', (request, response) => {
             if(error) { // there is an error
                 response.status(400); // status = 400
                 response.json({ // Display error message
+                    success: false,
                     message: 'Data was not found.',
                     error: error.message || 'An error has ocurred'
                 });
             } else {
-                response.json(result); // Display document found
+                response.json({
+                    success: true,
+                    ticket: result
+                }); // Display document found
             }
         }
     )
