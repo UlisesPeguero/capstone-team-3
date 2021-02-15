@@ -14,6 +14,7 @@ let Ticket = new mongoose.Schema({
         type: String, 
         required: true
     },
+    phone: String,
     details: {
         type: String,
         required: true
