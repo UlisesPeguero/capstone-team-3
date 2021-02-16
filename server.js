@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const ejs = require('ejs');
 const dotenv = require('dotenv');
 
 dotenv.config(); // load .env 
@@ -15,7 +16,7 @@ const app = express();
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
-
+app.set('view engine', 'ejs');
 // public files
 app.use('/public', express.static('public'));
 // internal application files
@@ -23,8 +24,10 @@ app.use('/app', express.static('app'));
 
 // API
 // routes
+const publicRouter = require('./routes/public.routes');
 const ticketsRouter = require('./routes/tickets.routes');
 
+app.use('/public', publicRouter);
 app.use('/api/tickets', ticketsRouter);
 // add more routers here
 
