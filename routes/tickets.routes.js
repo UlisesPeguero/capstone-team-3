@@ -7,7 +7,7 @@ let Ticket = require('../models/ticket.model');
 router.get('/', (request, response) => {
     Ticket.find((error /* error message if there was an error*/
         , result /* result from search */) => {
-        if(error) { // if error is not empty send error message
+        if (error) { // if error is not empty send error message
             response.status(400).json({
                 success: false,
                 message: 'Data was not found',
@@ -27,7 +27,7 @@ router.get('/:id', (request, response) => {
     Ticket.findById( // search by id in model Student
         id, // id to search for
         (error, result) => { // callback with error or result
-            if(error) { // there is an error
+            if (error) { // there is an error
                 response.status(400); // status = 400
                 response.json({ // Display error message
                     success: false,
@@ -47,13 +47,14 @@ router.get('/:id', (request, response) => {
 router.post('/', (request, response) => {
     const data = request.body; // body is the data we sent from the request
     //new instance of model Student
-    let ticket = new Ticket(data); 
+    let ticket = new Ticket(data);
+    let form = document.getElementById('repairForm')
     ticket.number = Math.random().toString(16).slice(-4).toUpperCase();// create random hexadecimal uuid of 4 characters
     // insert document into the collection
     ticket.save()// attempts to save into the database
         .then((savedTicket) => { // successful saving
             response.json({ // respond to the client with a success message and the new ticket
-                success: true, 
+                success: true,
                 ticket: savedTicket
             });
         })
@@ -91,21 +92,21 @@ router.put('/:id', (request, response) => {
             console.log(error); // log in the console
             response.status(500); // status = 500
             response.json({ // respond to the client with a failure message
-                success: false, 
+                success: false,
                 message: "Could not update user ",
                 error: error.message || 'An error has ocurred'
             });
         });
 });
-        
+
 router.delete('/:id', (request, response) => {
     const id = request.params.id; // get parameter id from request
     // attempt to search ticket by id and delete it
     Ticket.findByIdAndRemove(id)
-    .then((deletedTicket) => {
-        if (!deletedTicket) { // if the deletedTicket doesn't has data, the ticket couldn't be found
-            response.status(400); // status = 400
-            response.json({ // respond to client with an error message
+        .then((deletedTicket) => {
+            if (!deletedTicket) { // if the deletedTicket doesn't has data, the ticket couldn't be found
+                response.status(400); // status = 400
+                response.json({ // respond to client with an error message
                     message: 'Data was not found.',
                     success: false,
                 });
