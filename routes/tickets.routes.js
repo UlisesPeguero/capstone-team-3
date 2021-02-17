@@ -48,8 +48,6 @@ router.post('/', (request, response) => {
     const data = request.body; // body is the data we sent from the request
     //new instance of model Student
     let ticket = new Ticket(data);
-    let form = document.getElementById('repairForm')
-    console.log(form.submit)
     ticket.number = Math.random().toString(16).slice(-4).toUpperCase();// create random hexadecimal uuid of 4 characters
     // insert document into the collection
     ticket.save()// attempts to save into the database
