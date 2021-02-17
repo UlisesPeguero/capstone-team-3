@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PWR / Tickets</title>
+    <!-- Bootstraps -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <!-- Fontawesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+    <!-- Bootstrap table -->
+    <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="./css/dashboard.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" href="./img/logo.png" sizes="32x32" type="image/png">
+
+</head>
+<body class="bg-light">
+    <header class="navbar navbar-dark sticky-top flex-md-nowrap p-0 shadow">
+        <a class="navbar-brand col-12 col-sm-6 me-0 px-3" href="#">
+            <img src="./img/logo.png"  width="48" alt="Company logo"/>
+            SCRUM CITY
+        </a>
+        <button class="navbar-toggler position-absolute d-sm-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav px-3">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#">Sign out</a>
+          </li>
+        </ul>
+    </header>
+      
+    <div class="container-fluid">
+        <div class="row">
+          <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-dark sidebar collapse">
+            <div class="position-sticky pt-3">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                  <a class="nav-link active" aria-current="page" href="#">
+                    <span data-feather="inbox"></span>
+                    Service Requests
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="#">
+                    <span data-feather="file"></span>
+                    Categories
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="#">
+                    <span data-feather="package"></span>
+                    Catalogues
+                  </a>
+                </li>                
+              </ul>
+      
+              <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <span>Admin</span>                
+              </h6>
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link " href="#">
+                    <span data-feather="users"></span>
+                    Users
+                  </a>
+                </li>              
+              </ul>
+            </div>
+          </nav>
+      
+          <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+              <h1 class="h2">Service Requests</h1>
+              <!-- <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="btn-group me-2">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+                </div>
+                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+                  <span data-feather="calendar"></span>
+                  This week
+                </button>
+              </div> -->
+            </div>
+            <table 
+              id="table"
+              data-toggle="table"
+              data-toolbar="#toolbar"              
+              data-search="true"
+              data-icon-size="sm"
+              data-single-select="true"
+              -data-detail-view="true"
+              data-show-header="true"
+              data-show-toggle="true"
+              data-show-columns="true"
+              data-show-refresh="true"
+              data-smart-display="true"
+              data-click-to-select="true"
+              data-virtual-scroll="true"
+              data-undefined-text=""
+              data-url="<%= apiUrl %>"
+              data-data-field="tickets"
+              data-id-field="_id"
+            >
+              <thead>
+                <th data-field="state" data-checkbox="true" scope="col"></th>
+                <th data-field="createdAt" data-sortable="true" scope="col">Date</th>
+                <th data-field="number" scope="col">#</th>                
+                <th data-field="requestor" data-sortable="true" scope="col">Requestor</th>
+                <th data-field="email" data-sortable="true" scope="col">Email</th>
+                <th data-field="phone" scope="col">Phone</th>
+                <th data-field="details" data-sortable="true" scope="col">Details</th>
+                <th data-field="address" data-sortable="true" scope="col">Address</th>
+                <th data-field="priority" data-sortable="true" scope="col">Priority</th>
+                <th data-field="status" data-sortable="true" scope="col">Status</th>                
+                <th data-field="updatedAt" data-sortable="true" scope="col">Last update</th>                
+              </thead>
+            </table>            
+          </main>
+        </div>
+    </div>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+    <!-- Bootstrap table -->
+    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
+    <!--Feather icons-->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script>
+        // replace classes with feather icons
+        feather.replace();
+    </script>
+</body>
+</html>

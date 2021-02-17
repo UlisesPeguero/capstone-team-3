@@ -24,10 +24,12 @@ app.use('/app', express.static('app'));
 
 // API
 // routes
+const appRouter = require('./routes/app.routes');
 const publicRouter = require('./routes/public.routes');
 const ticketsRouter = require('./routes/tickets.routes');
 
 app.use('/public', publicRouter);
+app.use('/app', appRouter);
 app.use('/api/tickets', ticketsRouter);
 // add more routers here
 

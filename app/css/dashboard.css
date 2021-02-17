@@ -1,3 +1,8 @@
+html, 
+body {
+  height: 100%;
+}
+
 body {
   font-size: 0.875rem;
 }
@@ -109,3 +114,16 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25);
 }
 
+/* table */
+
+tr:nth-child(even) {
+  /*background-color: #EEEEF5;*/
+}
+
+.fixed-table-container {
+  border: solid 1px #dee2e6;
+}
+
+tbody {
+  box-shadow: inset 0px 0px 4px -1px #00000055;
+}

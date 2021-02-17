@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-// /api/tickets
+// /public
 
 router.get('/', (request, response) => {
     response.render('requestService.ejs');
