@@ -1,4 +1,4 @@
-const urlServer = 'https://capstone-team-3.herokuapp.com/api/tickets';
+const urlServer = '../api/tickets';
 
 const DeleteModal = new bootstrap.Modal(document.getElementById('deleteRequestModal'));
 const Notification = new bootstrap.Toast(document.getElementById('notification'), {autohide: true});
