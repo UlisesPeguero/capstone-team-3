@@ -7,11 +7,11 @@ let Ticket = new mongoose.Schema({
         required: true
     },
     requestor: {
-        type: String, 
+        type: String,
         required: true
     },
     email: {
-        type: String, 
+        type: String,
         required: true
     },
     phone: String,
@@ -23,16 +23,15 @@ let Ticket = new mongoose.Schema({
         type: String,
         required: true
     },
-    address2: String,
     priority: {
         type: String,
         required: true,
-        default: 'Low'        
+        default: 'Low'
     },
     status: {
         type: String,
         required: true,
-        default: 'Pending'        
+        default: 'Pending'
     }
 }, {
     timestamps: true

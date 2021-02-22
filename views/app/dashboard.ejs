@@ -28,7 +28,7 @@
         </button>
         <ul class="navbar-nav px-3">
           <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
+              </i><a class="nav-link" href="#">Sign out</a>
           </li>
         </ul>
     </header>
@@ -40,19 +40,19 @@
               <ul class="nav flex-column">
                 <li class="nav-item">
                   <a class="nav-link active" aria-current="page" href="#">
-                    <span data-feather="inbox"></span>
+                    <i class="fa fa-inbox"></i>
                     Service Requests
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link " href="#">
-                    <span data-feather="file"></span>
+                    <i class="fa fa-file"></i>
                     Categories
                   </a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link " href="#">
-                    <span data-feather="package"></span>
+                    <i class="fa fa-columns" ></i>
                     Catalogues
                   </a>
                 </li>                
@@ -64,7 +64,7 @@
               <ul class="nav flex-column mb-2">
                 <li class="nav-item">
                   <a class="nav-link " href="#">
-                    <span data-feather="users"></span>
+                    <i class="fa fa-users"></i>
                     Users
                   </a>
                 </li>              
@@ -75,19 +75,9 @@
           <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 bg-light">
             <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
               <h1 class="h2">Service Requests</h1>
-              <!-- div class="btn-toolbar mb-2 mb-md-0">
-                <div class="btn-group me-2">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
-                  <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
-                </div>
-                <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
-                  <span data-feather="calendar"></span>
-                  This week
-                </button>
-              </div-->
             </div>
             <div id="tableToolbar">
-              <button class="btn btn-secondary">New Request</button>
+              <button id="btnNewRequest" title="Create a new service request." class="btn btn-secondary btnBgColor" data-bs-toggle="modal" data-bs-target="#requestModal">New Request</button>
             </div>
             <table 
               id="table"
@@ -96,7 +86,8 @@
               data-search="true"
               data-icon-size="sm"
               data-single-select="true"
-              -data-detail-view="true"
+              data-detail-view="true"
+              data-detail-formatter="detailFormatter"
               data-show-header="true"
               data-show-toggle="true"
               data-show-columns="true"
@@ -105,24 +96,76 @@
               data-click-to-select="true"
               data-virtual-scroll="true"
               data-undefined-text=""
-              data-url="<%= apiUrl %>"
+              data-url="../api/tickets"
               data-data-field="tickets"
               data-id-field="_id"
             >
               <thead>
-                <th data-field="state" data-checkbox="true" scope="col"></th>
-                <th data-field="createdAt" data-sortable="true" scope="col">Date</th>
-                <th data-field="number" scope="col">#</th>                
+                <th data-field="createdAt" data-sortable="true" data-formatter="dateFormatter"  scope="col">Date</th>
+                <th data-field="number" class="bold" scope="col">#</th>                
                 <th data-field="requestor" data-sortable="true" scope="col">Requestor</th>
                 <th data-field="email" data-sortable="true" scope="col">Email</th>
-                <th data-field="phone" scope="col">Phone</th>
+                <th data-field="phone" data-visible="false" scope="col">Phone</th>
                 <th data-field="details" data-sortable="true" scope="col">Details</th>
-                <th data-field="address" data-sortable="true" scope="col">Address</th>
+                <th data-field="address" data-sortable="true" data-formatter="addressFormatter" scope="col">Address</th>
                 <th data-field="priority" data-sortable="true" scope="col">Priority</th>
                 <th data-field="status" data-sortable="true" scope="col">Status</th>                
-                <th data-field="updatedAt" data-sortable="true" scope="col">Last update</th>                
+                <th data-field="updatedAt" class="date" data-sortable="true" data-formatter="dateFormatter" scope="col">Last update</th>                
+                <th data-forMatter="actionsFormatter"  scope="col">Actions</th>                                
               </thead>
-            </table>            
+            </table> 
+            <!-- Modal Dialog for Updating and Creating  -->
+            <div id="requestModal" class="modal fade" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"  aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">New Service Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>I'm a Form!</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button id="btnSaveRequest" type="button" class="btn btn-primary">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal Dialog for Deleting  -->
+            <div id="deleteRequestModal" class="modal fade" tabindex="-1" data-bs-backdrop="static" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">Delete Request</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <p>Do you wish to delete the following request?</p>
+                    <p id="requestToDeleteDetail"></p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button id="btnDeleteRequest" type="button" class="btn btn-danger">Delete</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Notifications -->
+            <div class="position-fixed top-0 end-0 p-3" style="z-index: 100">
+              <div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                <div class="toast-header">
+                  <!-- <img src="..." class="rounded me-2" alt="..."> -->
+                  <strong id="notificationTitle" class="me-auto">Title</strong>
+                  <small class="text-muted">just now</small>
+                  <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div id="notificationContent" class="toast-body">
+                  Notification
+                </div>
+              </div>
+            </div>
+
           </main>
         </div>
     </div>
@@ -134,6 +177,8 @@
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
     <!--Feather icons-->
     <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <!-- Custom -->
+    <script src="./js/dashboard.js"></script>
     <script>
         // replace classes with feather icons
         feather.replace();
