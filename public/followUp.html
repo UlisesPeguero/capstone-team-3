@@ -33,32 +33,109 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="./css/followUp.css" rel="stylesheet">
+    <link href="./css/followUp.css" rel="stylesheet">  
   </head>
-  <body class="d-flex h-100 text-center text-white">
+  <body>
     
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
   <header class="mb-auto">
-    <div>
-      <h3 class="float-md-start mb-0">Cover</h3>
-      <nav class="nav nav-masthead justify-content-center float-md-end">
-        <a class="nav-link active" aria-current="page" href="#">Home</a>
-        <a class="nav-link" href="#">Features</a>
-        <a class="nav-link" href="#">Contact</a>
+    <div class="inner">
+      <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+            <img src="/app/img/logo_n.png" alt="" width="48" height="48" class="d-inline-block align-top">
+            SCRUM CITY
+          </a>
+
+          <button class="navbar-toggler position-absolute d-sm-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+      </nav>
       </nav>
     </div>
   </header>
+  
 
   <main class="px-3">
-    <h1>Cover your page.</h1>
-    
+    <div class="row topcard">
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Create Request
+          </div>
+          <div class="card-body">
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Create Request</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="card">
+          <div class="card-header">
+            Retrieve Request
+          </div>
+          <div class="card-body"> 
+            <form>
+              <div class="mb-3">
+                <label for="numberRequest" class="form-label">Number Request</label>
+                <input type="text" class="form-control" id="numberRequest" placeholder="PWR-0000" required>
+              </div>
+              <div class="mb-3">
+               <label for="emailRequest" class="form-label">Email address</label>
+               <input type="email" class="form-control" id="emailRequest" placeholder="name@example.com" required>
+              </div>
+              <button type="submit" class="btn btn-primary">Retrieve Request</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-3 alert alert-primary" role="alert">
+      A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+    </div>
+    <br>
+    <div class="mt-3 alert alert-danger" role="alert">
+      A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 my-4">
+        <div class="card">
+          <div class="card-header">
+            Create Request
+          </div>
+          <div class="card-body">
+            <div class="row">
+              <div class="col-sm-5">
+                <div>
+                  <span class="card-title">Last update</span>
+                  <p class="card-text">00/00/2021 12:35</p>
+                </div>
+                <div>
+                  <span class="card-title">Status</span>
+                  <p class="card-text">In Progress</p>
+                </div>
+              </div>
+              <div class="col-sm-7">
+                <span class="card-title">Details</span>
+                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+              </div>
+              
+            
+          </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
 
+
+
   <footer class="mt-auto text-white-50">
-    <p>Cover template for <a href="https://getbootstrap.com/" class="text-white">Bootstrap</a>, by <a href="https://twitter.com/mdo" class="text-white">@mdo</a>.</p>
+    <p>PWR Scrum City . 2021 </p>
   </footer>
 </div>
-
 
     
   </body>
