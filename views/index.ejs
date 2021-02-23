@@ -81,11 +81,11 @@
         </div>
       </div>
     </div>
-    <div class="mt-3 alert alert-primary" role="alert">
+    <div class="mt-3 alert alert-primary" role="alert" style="display:<%=ticket?"block":"none"%>">
       A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
     </div>
     <br>
-    <div class="mt-3 alert alert-danger" role="alert">
+    <div class="mt-3 alert alert-danger" role="alert" style="display:<%=error?"block":"none"%>">
       A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
     </div>
 
@@ -93,23 +93,23 @@
       <div class="col-sm-12 my-4">
         <div class="card">
           <div class="card-header">
-            Create Request
+             Request #<%=ticket?ticket.number:""%>
           </div>
           <div class="card-body">
             <div class="row">
               <div class="col-sm-5">
                 <div>
                   <span class="card-title">Last update</span>
-                  <p class="card-text">00/00/2021 12:35</p>
+                  <p class="card-text"><%=ticket?ticket.updatedAt:""%></p>
                 </div>
                 <div>
                   <span class="card-title">Status</span>
-                  <p class="card-text">In Progress</p>
+                  <p class="card-text"><%=ticket?ticket.status:""%></p>
                 </div>
               </div>
               <div class="col-sm-7">
                 <span class="card-title">Details</span>
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text"><%=ticket?ticket.details:""%></p>
               </div>
               
             
@@ -125,7 +125,7 @@
                     <h2 class="title">Service Request</h2>
                 </div>
                 <div class="card-body">
-                    <form action="https://capstone-team-3.herokuapp.com/api/tickets" method="post" id="repairForm">
+                    <form action="./request" method="post" id="repairForm">
                         <div class="form-row">
                             <div class="name">Requestor Name</div>
                             <div class="value">
