@@ -1,7 +1,11 @@
 const urlServer = '../api/tickets';
 
 const DeleteModal = new bootstrap.Modal(document.getElementById('deleteRequestModal'));
-const Notification = new bootstrap.Toast(document.getElementById('notification'), {autohide: true});
+const Notification = new bootstrap.Toast(document.getElementById('notification'), { autohide: true });
+
+const MOBILE_XTRESSHOLD = 580;
+const SCREEN_YOFFSET = 235; // pixels
+let MOBILE_YOFFSET = 60;
 
 function dateFormatter(value, row) {
     return new Intl.DateTimeFormat('en-US', {
@@ -10,7 +14,7 @@ function dateFormatter(value, row) {
         day: 'numeric',
         hour: 'numeric',
         minute: 'numeric'
-    }).format(new Date(value));    
+    }).format(new Date(value)).replace(',', ' ');    
 }
 
 function addressFormatter(value) {
@@ -58,10 +62,7 @@ function deleteRequest(id) {
             // handle success
             console.log(response);            
             $('#ticketsTable').bootstrapTable('removeByUniqueId', id);
-            displayNotification({
-                title: 'Delete',
-                content: 'The request has been removed from the database.'
-            });
+            displayNotification('Delete', 'The service request has been removed succesfully.');
         })
         .catch(function (error) {
             // handle error
@@ -73,11 +74,30 @@ function deleteRequest(id) {
         });
 }
 
-function displayNotification({ title, content }, status, timeToLive = 3 * 6000) {
+function displayNotification(title, content, isError = false) {
+    $('#notification').removeClass('notificationError');        
     $('#notificationTitle').html(title);
     $('#notificationContent').html(content);
+    if (isError) {
+        $('#notification').addClass('notificationError');        
+    }
     Notification.show();    
 }
 
-let bodyHeight = $('body').height();
+let bodyHeight = null;
 
+function adjustTableHeight(forced = false) {
+    let newHeight = window.innerHeight;
+    if (bodyHeight !== newHeight || forced) {
+        bodyHeight = newHeight;
+        newHeight -= SCREEN_YOFFSET;
+        if (window.innerWidth < MOBILE_XTRESSHOLD) newHeight -= MOBILE_YOFFSET;
+        $('.fixed-table-container').height(newHeight);        
+    }
+}
+
+window.addEventListener('resize', adjustTableHeight);
+// run adjustment at the begining
+$(() => {
+    adjustTableHeight();
+});
