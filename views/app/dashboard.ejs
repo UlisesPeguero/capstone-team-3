@@ -10,6 +10,7 @@
     <!-- Fontawesome -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
     <!-- Bootstrap table -->
+    <link href="https://unpkg.com/jquery-resizable-columns@0.2.3/dist/jquery.resizableColumns.css" rel="stylesheet">
     <link href="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.css" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="./css/dashboard.css" rel="stylesheet">
@@ -45,13 +46,13 @@
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="#">
+                  <a class="nav-link disabled " href="#">
                     <i class="fa fa-file"></i>
                     Categories
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link " href="#">
+                  <a class="nav-link  disabled" href="#">
                     <i class="fa fa-columns" ></i>
                     Catalogues
                   </a>
@@ -63,7 +64,7 @@
               </h6>
               <ul class="nav flex-column mb-2">
                 <li class="nav-item">
-                  <a class="nav-link " href="#">
+                  <a class="nav-link disabled" href="#">
                     <i class="fa fa-users"></i>
                     Users
                   </a>
@@ -81,8 +82,11 @@
             </div>
             <table 
               id="table"
+              class="table-stripped"
               data-toggle="table"
               data-toolbar="#tableToolbar"              
+              data-thead-classes="bg-dark text-light"
+              data-sticky-header="true"
               data-search="true"
               data-icon-size="sm"
               data-single-select="true"
@@ -92,6 +96,7 @@
               data-show-toggle="true"
               data-show-columns="true"
               data-show-refresh="true"
+              data-resizable="true"
               data-smart-display="true"
               data-click-to-select="true"
               data-virtual-scroll="true"
@@ -152,10 +157,10 @@
               </div>
             </div>
             <!-- Notifications -->
-            <div class="position-fixed top-0 end-0 p-3" style="z-index: 100">
+            <div class="position-fixed p-3" style="z-index: 100; top: 25%; right: 0%;">
               <div id="notification" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                 <div class="toast-header">
-                  <!-- <img src="..." class="rounded me-2" alt="..."> -->
+                  <i class="fa fa-square"></i>
                   <strong id="notificationTitle" class="me-auto">Title</strong>
                   <small class="text-muted">just now</small>
                   <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -174,14 +179,10 @@
     <!-- JavaScript Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     <!-- Bootstrap table -->
+    <script src="https://unpkg.com/jquery-resizable-columns@0.2.3/dist/jquery.resizableColumns.min.js"></script>
     <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/bootstrap-table.min.js"></script>
-    <!--Feather icons-->
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js" integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-table@1.18.2/dist/extensions/resizable/bootstrap-table-resizable.min.js"></script>
     <!-- Custom -->
-    <script src="./js/dashboard.js"></script>
-    <script>
-        // replace classes with feather icons
-        feather.replace();
-    </script>
+    <script src="./js/dashboard.js"></script>    
 </body>
 </html>

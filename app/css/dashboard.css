@@ -1,6 +1,7 @@
 html, 
 body {
-  height: 100%;
+   height: 100%; 
+   overflow: hidden;
 }
 
 body {
@@ -144,9 +145,6 @@ td.bold {
   font-weight: bold;
 }
 
-tb.date {
-  max-width: 100px;
-}
 
 .actionButton,
 .detail-icon {
@@ -170,4 +168,12 @@ span.detailLabel {
   margin-right: 10px;
   text-align: right;
   font-weight: 500;
+}
+
+/* Notification */
+
+.notificationError {
+  color: #842029 !important;
+  background-color: #f8d7da !important;
+  border-color: #f5c2c7 !important;
 }
