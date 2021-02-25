@@ -119,7 +119,7 @@ function deleteRequest(id) {
                 content: error.responseJSON.message
             });
         }).then(function () {
-            DeleteModal.hide();
+            DeleteModal.modal('hide');
         });
 }
 
@@ -167,7 +167,7 @@ function post(ticketData) {
                 content: error.responseJSON.message
             });
         }).then(function () {
-            RequestModal.hide();
+            RequestModal.modal('hide');
         });    
 }
 
@@ -178,25 +178,26 @@ function put(id, ticketData) {
         url: urlServer + '/' + id,
         data: ticketData
     }).then(function (response) {
-            // handle success
-            console.log(response);
-            displayNotification('Edit', 'The service request has been updated succesfully.');
-            RequestsTable.bootstrapTable('updateByUniqueId', {
-                id: id,
-                row: response.ticket
-            });
-        })
+        // handle success
+        console.log(response);
+        displayNotification('Edit', 'The service request has been updated succesfully.');
+        RequestsTable.bootstrapTable('updateByUniqueId', {
+            id: id,
+            row: response.ticket
+        });       
+    })
         .catch(function (error) {
             // handle error
-            console.log(error.responseJSON);  
+            console.log(error.responseJSON);
             console.log(error.responseJSON);
             displayNotification({
                 title: 'Error Updating',
                 content: error.responseJSON.message
             });
-        }).then(function () {
-            RequestModal.hide();
-        });  
+           
+        }).then(() => {
+            RequestModal.modal('hide');
+        }); 
 }
 
 

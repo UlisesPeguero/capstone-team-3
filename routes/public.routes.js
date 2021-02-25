@@ -5,21 +5,56 @@ const Ticket = require('../models/ticket.model')
 // /public
 
 router.get('/', (request, response) => {
-    response.render('index.ejs',{ticket:false,error:false});
+    // if number exists this is a retrieve request
+    if (request.query.number) {
+        Ticket.find({ 
+                number: request.query.number, // search for number
+                email: request.query.email //search for email
+            },
+            (error, result) => { // callback with error or result
+                if (error) { // there is an error
+                    console.log(error);
+                    response.render('index.ejs', { 
+                        query: request.query,
+                        error: 'Data was not found.',
+                        ticket: false
+                    });
+                } else {
+                    if (result.length > 0) {
+                        response.render('index.ejs', {
+                            ticket: result[0],
+                            query: request.query,
+                            error: false
+                        }); // Display document found
+                    } else {
+                        response.render('index.ejs', {
+                            error: 'Data was not found.',
+                            query: request.query,
+                            ticket: false
+                        });
+                    }
+                }
+            }
+        )
+    } else {
+        // send regular option page
+        response.render('index.ejs', { ticket: false, error: false, query: false });
+    }
 });
 
-router.post('/request', (request, response) => {
+router.post('/', (request, response) => {
     const data = request.body; // body is the data we sent from the request
     //new instance of model Student
     let ticket = new Ticket(data);
-    ticket.number = Math.random().toString(16).slice(-4).toUpperCase();// create random hexadecimal uuid of 4 characters
+    // create random hexadecimal uuid of 4 characters
+    ticket.number = Math.random().toString(16).slice(-4).toUpperCase();
     // insert document into the collection
     ticket.save()// attempts to save into the database
         .then((savedTicket) => { // successful saving
             // response.render("index.ejs",{
                 // ticket:savedTicket, error:false
             // })
-            response.redirect("/public/"+savedTicket._id)
+            response.redirect("./"+savedTicket._id)
         })
         .catch(error => { // there was an error and couldn't be save
             console.log(error); // log in the console
@@ -46,7 +81,7 @@ router.get('/:id', (request, response) => {
                 });
             } else {
                 response.render("index.ejs",{
-                    ticket: result, error:false
+                    ticket: result, error:false, query:false
                 }) // Display document found
             }
         }

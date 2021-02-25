@@ -3,6 +3,16 @@ const router = express.Router();
 let Ticket = require('../models/ticket.model');
 
 // /api/tickets
+router.use(function (request, response, next) {
+    if (request.oidc.isAuthenticated()) {
+        next();
+    } else {
+        response.status(500).json({
+            authenticated: false
+        })
+    }
+});
+
 
 router.get('/', (request, response) => {
     Ticket.find((error /* error message if there was an error*/

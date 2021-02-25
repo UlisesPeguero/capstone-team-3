@@ -29,6 +29,9 @@ body{
   
 }
 
+h2 {
+  font-weight: bold;
+}
 
 .wrap {
   min-height: 100vh;
@@ -43,10 +46,10 @@ main {
   padding-top: 30px;
   padding-bottom: 60px;
 }
+
 hr{
   width:98% !important;
-  margin: 0 auto;
-  margin-bottom: 15px;
+  margin: 15px 1% 15px 1% !important;
 }
 
 .container {
@@ -64,6 +67,7 @@ header {
     line-height: 80px;
     position: absolute;
     top: 0%;
+    z-index: 2;
 }
 
 .nav-masthead .nav-link_ {
@@ -96,6 +100,11 @@ header {
 .topcard .card-body {
   height: 250px;
 }
+
+.card-body {
+  text-align: justify;
+}
+
 .card-header{
   font-size: 22px;
   font-weight: bold;
@@ -107,8 +116,8 @@ header {
 
 }
 .buttonRequest{
-  background: #1B97DA;
-  border: 1px solid #CCCCCC;
+  background: #1B97DA !important;
+  border: 1px solid #CCCCCC !important;
   position: absolute;
   bottom: 15px;
   right: 15px;
@@ -122,3 +131,4 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
