@@ -3,42 +3,27 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-   
-    <title>Follow up</title>
-    
-    
-
+    <title>Public Works Requests</title>
     <!-- Bootstrap core CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i"
-    rel="stylesheet">
-
-
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
     <!-- Favicons -->
     <link rel="icon" href="../app/img/logo_n.png" sizes="32x32" type="image/png">    
-
-    
     <!-- Custom styles for this template -->
     <link href="./css/followUp.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet" media="all">  
+    <link href="./css/status.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet" media="all">  
   </head>
   <body>
-    
-  
   <header class="mb-auto">
     <div class="container">
       <a class="navbar-brand" href="#" style="text-decoration-color: white;">
-
         <img src="../app/img/logo.png" style="width: 56px; height: 56px" alt="Website Logo">
-
         <span class="text-light">SCRUM CITY</span>
-
       </a>
-
       <nav class="nav nav-masthead justify-content-center float-end">
-
-        <a class="nav-link active" aria-current="page" href="#">Home</a>        
-
+        <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+        <a class="nav-link  text-light"  href="../login">Log in</a>        
       </nav>
     </div>
   </header>
@@ -54,8 +39,16 @@
             Create Request
           </div>
           <div class="card-body">
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <button class="btn btn-primary buttonRequest">Create Request</button>
+            <p class="card-text">
+              Request repairs to public streets in Scrum City, including pothole or cracked asphalt repair, or mill and overlay work.
+            </p>
+            <br>
+            <p class="card-text">  
+              Provide specific locations or details related to your request, if possible.
+              When small pavement problems such as potholes are reported, major thoroughfares are given the highest priority and are generally repaired within two to three working days. Small issues on residential streets can take three to five days to repair.
+              
+            </p>
+            <button class="btn btn-primary buttonRequest" onclick="showForm()">Create Request</button>
 
           </div>
         </div>
@@ -65,15 +58,20 @@
           <div class="card-header">
             Retrieve Request
           </div>
-          <div class="card-body"> 
-            <form>
+          <div class="card-body">             
+            <form method="GET" action="./">
               <div class="mb-3">
                 <label for="numberRequest" class="form-label">Number Request</label>
-                <input type="text" class="form-control" id="numberRequest" placeholder="PWR-0000" required>
+                <div class="input-group">
+                  <div class="input-group-prepend">
+                    <div class="input-group-text">PWR</div>
+                  </div>                
+                  <input type="text" class="form-control" id="numberRequest" placeholder="0000" name="number" required value=<%= query ? query.number : "" %>>
+                </div>
               </div>
               <div class="mb-3">
                <label for="emailRequest" class="form-label">Email address</label>
-               <input type="email" class="form-control" id="emailRequest" placeholder="name@example.com" required>
+               <input type="email" class="form-control" id="emailRequest" placeholder="name@example.com" name="email" required value=<%= query ? query.email : "" %>>
               </div>
               <button type="submit" class="btn btn-primary buttonRequest">Retrieve Request</button>
             </form>
@@ -81,35 +79,38 @@
         </div>
       </div>
     </div>
-    <div class="mt-3 alert alert-primary" role="alert" style="display:<%=ticket?"block":"none"%>">
+    <% if(ticket) { %>
+    <div class="mt-3 mb-0 alert alert-primary" role="alert">
       A simple primary alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
     </div>
-    <br>
-    <div class="mt-3 alert alert-danger" role="alert" style="display:<%=error?"block":"none"%>">
+    <% } %>
+    <% if(error) { %>
+    <div class="mt-3 mb-0 alert alert-danger" role="alert" >
       A simple danger alert with <a href="#" class="alert-link">an example link</a>. Give it a click if you like.
     </div>
-
-    <div class="row retriveRequest">
+    <% } %>
+    <% if(ticket) { %>
+    <div class="row retrieveRequest">
       <div class="col-sm-12 my-4">
         <div class="card">
           <div class="card-header">
-             Request #<%=ticket?ticket.number:""%>
+             Request # PWR-<%= ticket.number %>
           </div>
           <div class="card-body">
             <div class="row">
               <div class="col-sm-5">
                 <div>
                   <span class="card-title">Last update</span>
-                  <p class="card-text"><%=ticket?ticket.updatedAt:""%></p>
+                  <p class="card-text"><%= ticket.updatedAt %></p>
                 </div>
                 <div>
-                  <span class="card-title">Status</span>
-                  <p class="card-text"><%=ticket?ticket.status:""%></p>
+                  <span class="card-title status <%= ticket.status.replace(' ', '').toLowerCase() %>">Status</span>
+                  <p class="card-text"><%= ticket.status %></p>
                 </div>
               </div>
               <div class="col-sm-7">
                 <span class="card-title">Details</span>
-                <p class="card-text"><%=ticket?ticket.details:""%></p>
+                <p class="card-text"><%= ticket.details %></p>
               </div>
               
             
@@ -118,14 +119,15 @@
         </div>
       </div>
     </div>
-    <div class="row formRequest">
+    <% } %>
+    <div class="row formRequest" style="display: none">
       <div class="col-sm-12 my-4">
         <div class="card card-6">
                 <div class="card-heading">
                     <h2 class="title">Service Request</h2>
                 </div>
                 <div class="card-body">
-                    <form action="./request" method="post" id="repairForm">
+                    <form action="./" method="post" id="repairForm">
                         <div class="form-row">
                             <div class="name">Requestor Name</div>
                             <div class="value">
@@ -133,7 +135,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Email address</div>
+                            <div class="name">Email Address</div>
                             <div class="value">
                                 <div class="input-group">
                                     <input class="input--style-6" type="email" name="email"
@@ -150,7 +152,7 @@
                             </div>
                         </div>
                         <div class="form-row">
-                            <div class="name">Description</div>
+                            <div class="name">Details</div>
                             <div class="value">
                                 <div class="input-group">
                                     <textarea class="textarea--style-6" name="details"
@@ -158,7 +160,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-row">
+                        <!-- <div class="form-row">
                             <div class="name">Attachments</div>
                             <div class="value">
                                 <div class="input-group js-input-file">
@@ -169,35 +171,36 @@
                                 <div class="label--desc">Upload any files you have that can provide further details
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         <div class="form-row">
                             <div class="name">Address</div>
                             <div class="value">
                                 <div class="input-group">
-                                    <textarea class="textarea--style-6" name="address"
-                                        placeholder="Address or description of location"></textarea>
+                                    <input class="input--style-6" name="address"  placeholder="Address or description of location">
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <button class="btn btn--radius-2 btn--blue-2" type="submit">Submit</button>
+                            <button class="btn btn--radius-2 btn--blue-2 buttonRequest" type="submit">Submit</button>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
-      </div>
+    </div>    
   </main>
-
-
-
   <footer class="text-center text-white-50">
     <div class="container">
       <p>PWR Scrum City . 2021 </p>
     </div>  
   </footer>
-</div>
-
-    
-  </body>
+  </div>
+  <script>
+    function showForm() {
+      document.querySelector('.formRequest').style.display = 'block';
+      document.querySelectorAll('.alert').forEach(alert => alert.style.display = 'none');
+      document.querySelector('.retrieveRequest').style.display = 'none';
+    }
+  </script>
+</body>
 </html>

@@ -27,11 +27,17 @@
         <button class="navbar-toggler position-absolute d-sm-none collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <ul class="navbar-nav px-3">
-          <li class="nav-item text-nowrap">
-              </i><a class="nav-link" href="#">Sign out</a>
-          </li>
-        </ul>
+        <span class="d-flex justify-content-end align-items-center">
+          <span class="user">
+            <span class="text-light"><%= user.name %></span>
+            <img src="<%= user.picture %>" alt="User avatar" height="32">            
+          </span>          
+          <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                </i><a class="nav-link" href="../logout">Sign out</a>
+            </li>
+          </ul>
+        </span>
     </header>
       
     <div class="container-fluid">
