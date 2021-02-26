@@ -119,7 +119,7 @@ function deleteRequest(id) {
                 content: error.responseJSON.message
             });
         }).then(function () {
-            DeleteModal.modal('hide');
+            DeleteModal.hide();
         });
 }
 
