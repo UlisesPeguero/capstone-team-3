@@ -17,183 +17,181 @@
   <body>
   <header class="mb-auto">
     <div class="container">
-      <a class="navbar-brand" href="#" style="text-decoration-color: white;">
+      <a class="navbar-brand" href="/public" style="text-decoration-color: white;">
         <img src="../app/img/logo.png" style="width: 56px; height: 56px" alt="Website Logo">
         <span class="text-light">SCRUM CITY</span>
       </a>
       <nav class="nav nav-masthead justify-content-center float-end">
-        <a class="nav-link active text-light" aria-current="page" href="#">Home</a>
+        <a class="nav-link active text-light" aria-current="page" href="/public">Home</a>
         <a class="nav-link  text-light"  href="../login">Log in</a>        
       </nav>
     </div>
   </header>
   
   <div class="wrap">
-  <main class="px-3 container">
-    <div class="row topcard">
-      <h2>Public Works Requests</h2>
-       <hr>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            Create Request
-          </div>
-          <div class="card-body">
-            <p class="card-text">
-              Request repairs to public streets in Scrum City, including pothole or cracked asphalt repair, or mill and overlay work.
-            </p>
-            <br>
-            <p class="card-text">  
-              Provide specific locations or details related to your request, if possible.
-              When small pavement problems such as potholes are reported, major thoroughfares are given the highest priority and are generally repaired within two to three working days. Small issues on residential streets can take three to five days to repair.
-              
-            </p>
-            <button class="btn btn-primary buttonRequest" onclick="showForm()">Create Request</button>
-
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-6">
-        <div class="card">
-          <div class="card-header">
-            Retrieve Request
-          </div>
-          <div class="card-body">             
-            <form method="GET" action="./">
-              <div class="mb-3">
-                <label for="numberRequest" class="form-label">Number Request</label>
-                <div class="input-group">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">PWR</div>
-                  </div>                
-                  <input type="text" class="form-control" id="numberRequest" placeholder="0000" name="number" required value=<%= query ? query.number : "" %>>
-                </div>
-              </div>
-              <div class="mb-3">
-               <label for="emailRequest" class="form-label">Email address</label>
-               <input type="email" class="form-control" id="emailRequest" placeholder="name@example.com" name="email" required value=<%= query ? query.email : "" %>>
-              </div>
-              <button type="submit" class="btn btn-primary buttonRequest">Retrieve Request</button>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% if(ticket) { %>
-    <div class="mt-3 mb-0 alert alert-primary" role="alert">
-      The request has been send succesfully, please write down the request # <strong>PWR <%= ticket.number %></strong> and the email <strong><%= ticket.email %></strong> to follow up on the status of your request.
-    </div>
-    <% } %>
-    <% if(error) { %>
-    <div class="mt-3 mb-0 alert alert-danger" role="alert" >
-      An error has ocurred while processing request, please try again.
-    </div>
-    <% } %>
-    <% if(ticket) { %>
-    <div class="row retrieveRequest">
-      <div class="col-sm-12 my-4">
-        <div class="card">
-          <div class="card-header">
-             Request # PWR-<%= ticket.number %>
-          </div>
-          <div class="card-body">
-            <div class="row">
-              <div class="col-sm-5">
-                <div>
-                  <span class="card-title">Last update</span>
-                  <p class="card-text"><%= ticket.updatedAt %></p>
-                </div>
-                <div>
-                  <span class="card-title status <%= ticket.status.replace(' ', '').toLowerCase() %>">Status</span>
-                  <p class="card-text"><%= ticket.status %></p>
-                </div>
-              </div>
-              <div class="col-sm-7">
-                <span class="card-title">Details</span>
-                <p class="card-text"><%= ticket.details %></p>
-              </div>
-              
-            
-          </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <% } %>
-    <div class="row formRequest" style="display: none">
-      <div class="col-sm-12 my-4">
-        <div class="card card-6">
-                <div class="card-heading">
-                    <h2 class="title">Service Request</h2>
-                </div>
-                <div class="card-body">
-                    <form action="./" method="post" id="repairForm">
-                        <div class="form-row">
-                            <div class="name">Requestor Name</div>
-                            <div class="value">
-                                <input class="input--style-6" type="text" name="requestor">
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Email Address</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-6" type="email" name="email"
-                                        placeholder="example@email.com">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Phone Number</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-6" type="text" name="phone" placeholder="555-555-5555">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="name">Details</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <textarea class="textarea--style-6" name="details"
-                                        placeholder="Description of damage"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- <div class="form-row">
-                            <div class="name">Attachments</div>
-                            <div class="value">
-                                <div class="input-group js-input-file">
-                                    <input class="input-file" type="file" name="file_cv" id="file">
-                                    <label class="label--file" for="file">Choose file</label>
-                                    <span class="input-file__info">No file chosen</span>
-                                </div>
-                                <div class="label--desc">Upload any files you have that can provide further details
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="form-row">
-                            <div class="name">Address</div>
-                            <div class="value">
-                                <div class="input-group">
-                                    <input class="input--style-6" name="address"  placeholder="Address or description of location">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <button class="btn btn--radius-2 btn--blue-2 buttonRequest" type="submit">Submit</button>
-                        </div>
-                    </form>
-                </div>
+    <main class="px-3 container">
+      <div class="row topcard">
+        <h2>Public Works Requests</h2>
+        <hr>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              Create Request
             </div>
+            <div class="card-body">
+              <p class="card-text mb-1">
+                Request repairs to public streets in Scrum City, including pothole or cracked asphalt repair, or mill and overlay work.
+              </p>
+              <p class="card-text">  
+                Provide specific locations or details related to your request, if possible.
+                When small pavement problems such as potholes are reported, major thoroughfares are given the highest priority and are generally repaired within two to three working days.              
+              </p>
+              <button class="btn btn-primary buttonRequest" onclick="showForm()">Create Request</button>
+
+            </div>
+          </div>
         </div>
-    </div>    
-  </main>
-  <footer class="text-center text-white-50">
-    <div class="container">
-      <p>PWR Scrum City . 2021 </p>
-    </div>  
-  </footer>
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header">
+              Retrieve Request
+            </div>
+            <div class="card-body">             
+              <form method="GET" action="./">
+                <div class="mb-3">
+                  <label for="numberRequest" class="form-label">Number Request</label>
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text">PWR</div>
+                    </div>                
+                    <input type="text" class="form-control" id="numberRequest" placeholder="0000" name="number" required value=<%= query ? query.number : "" %>>
+                  </div>
+                </div>
+                <div class="mb-3">
+                <label for="emailRequest" class="form-label">Email address</label>
+                <input type="email" class="form-control" id="emailRequest" placeholder="name@example.com" name="email" required value=<%= query ? query.email : "" %>>
+                </div>
+                <button type="submit" class="btn btn-primary buttonRequest">Retrieve Request</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% if(ticket && post) { %>
+      <div class="mt-3 mb-0 alert alert-primary" role="alert">
+        The request has been send succesfully, please write down the request # <strong>PWR <%= ticket.number %></strong> and the email <strong><%= ticket.email %></strong> to follow up on the status of your request.
+      </div>
+      <% } %>
+      <% if(error) { %>
+      <div class="mt-3 mb-0 alert alert-danger" role="alert" >
+        The request was not found, please verify the request number and email and try again.
+      </div>
+      <% } %>
+      <% if(ticket) { %>
+      <div class="row retrieveRequest">
+        <div class="col-sm-12 my-4">
+          <div class="card">
+            <div class="card-header">
+              Request # PWR <%= ticket.number %>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-sm-5">
+                  <div>
+                    <span class="card-title">Last update</span>
+                    <p class="card-text"><%= ticket.updatedAt %></p>
+                  </div>
+                  <div>
+                    <span class="card-title status">Status</span>
+                    <p class="card-text status <%= ticket.status.replace(' ', '').toLowerCase() %>"><%= ticket.status %></p>
+                  </div>
+                </div>
+                <div class="col-sm-7">
+                  <span class="card-title">Details</span>
+                  <p class="card-text"><%= ticket.details %></p>
+                </div>
+                
+              
+            </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } %>
+      <div class="row formRequest" style="display: none">
+        <div class="col-sm-12 my-4">
+          <div class="card card-6">
+                  <div class="card-heading">
+                      <h2 class="title">Service Request</h2>
+                  </div>
+                  <div class="card-body">
+                      <form action="./" method="post" id="repairForm">
+                          <div class="form-row">
+                              <div class="name">Requestor Name</div>
+                              <div class="value">
+                                  <input class="input--style-6" type="text" name="requestor">
+                              </div>
+                          </div>
+                          <div class="form-row">
+                              <div class="name">Email Address</div>
+                              <div class="value">
+                                  <div class="input-group">
+                                      <input class="input--style-6" type="email" name="email"
+                                          placeholder="example@email.com">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-row">
+                              <div class="name">Phone Number</div>
+                              <div class="value">
+                                  <div class="input-group">
+                                      <input class="input--style-6" type="text" name="phone" placeholder="555-555-5555">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-row">
+                              <div class="name">Details</div>
+                              <div class="value">
+                                  <div class="input-group">
+                                      <textarea class="textarea--style-6" name="details"
+                                          placeholder="Description of damage"></textarea>
+                                  </div>
+                              </div>
+                          </div>
+                          <!-- <div class="form-row">
+                              <div class="name">Attachments</div>
+                              <div class="value">
+                                  <div class="input-group js-input-file">
+                                      <input class="input-file" type="file" name="file_cv" id="file">
+                                      <label class="label--file" for="file">Choose file</label>
+                                      <span class="input-file__info">No file chosen</span>
+                                  </div>
+                                  <div class="label--desc">Upload any files you have that can provide further details
+                                  </div>
+                              </div>
+                          </div> -->
+                          <div class="form-row">
+                              <div class="name">Address</div>
+                              <div class="value">
+                                  <div class="input-group">
+                                      <input class="input--style-6" name="address"  placeholder="Address or description of location">
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="card-footer">
+                              <button class="btn btn--radius-2 btn--blue-2 buttonRequest" type="submit">Submit</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>    
+    </main>
+    <footer class="text-center text-white-50">
+      <div class="container">
+        <p>PWR Scrum City . 2021 </p>
+      </div>  
+    </footer>
   </div>
   <script>
     function showForm() {
