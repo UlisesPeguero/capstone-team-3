@@ -1,4 +1,5 @@
 const express = require('express');
+const dateFormat = require('dateformat');
 const router = express.Router();
 
 const Ticket = require('../models/ticket.model')
@@ -8,7 +9,7 @@ router.get('/', (request, response) => {
     // if number exists this is a retrieve request
     if (request.query.number) {
         Ticket.find({ 
-                number: request.query.number, // search for number
+                number: request.query.number.toUpperCase(), // search for number
                 email: request.query.email //search for email
             },
             (error, result) => { // callback with error or result
@@ -17,20 +18,25 @@ router.get('/', (request, response) => {
                     response.render('index.ejs', { 
                         query: request.query,
                         error: 'Data was not found.',
-                        ticket: false
+                        ticket: false,
+                        post: false
                     });
                 } else {
                     if (result.length > 0) {
+                        let ticket = result[0].toJSON();
+                        ticket.updatedAt = dateFormat(ticket.updatedAt, 'mmm dS, yyyy, h:MM TT');
                         response.render('index.ejs', {
-                            ticket: result[0],
+                            ticket: ticket,
                             query: request.query,
-                            error: false
+                            error: false,
+                            post: false
                         }); // Display document found
                     } else {
                         response.render('index.ejs', {
                             error: 'Data was not found.',
                             query: request.query,
-                            ticket: false
+                            ticket: false,
+                            post: false
                         });
                     }
                 }
@@ -51,10 +57,13 @@ router.post('/', (request, response) => {
     // insert document into the collection
     ticket.save()// attempts to save into the database
         .then((savedTicket) => { // successful saving
-            // response.render("index.ejs",{
-                // ticket:savedTicket, error:false
-            // })
-            response.redirect("./"+savedTicket._id)
+            response.render("index.ejs", {
+                ticket: savedTicket,
+                error: false,
+                query: false,
+                post: true
+            });
+            //response.redirect("./"+savedTicket._id)
         })
         .catch(error => { // there was an error and couldn't be save
             console.log(error); // log in the console
@@ -62,7 +71,8 @@ router.post('/', (request, response) => {
             response.json({ // respond to the client with a failure message
                 success: false, // this can be anything
                 message: 'The ticket could not be created',
-                error: error.message || 'An error has ocurred'
+                error: error.message || 'An error has ocurred',
+                post: false
             });
         });
 });
@@ -81,7 +91,10 @@ router.get('/:id', (request, response) => {
                 });
             } else {
                 response.render("index.ejs",{
-                    ticket: result, error:false, query:false
+                    ticket: result,
+                    error: false,
+                    query: false,
+                    post: false
                 }) // Display document found
             }
         }
