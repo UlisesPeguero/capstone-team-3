@@ -57,8 +57,10 @@ router.post('/', (request, response) => {
     // insert document into the collection
     ticket.save()// attempts to save into the database
         .then((savedTicket) => { // successful saving
+            let ticket = savedTicket.toJSON();
+            ticket.updatedAt = dateFormat(ticket.updatedAt, 'mmm dS, yyyy, h:MM TT');
             response.render("index.ejs", {
-                ticket: savedTicket,
+                ticket: ticket,
                 error: false,
                 query: false,
                 post: true
