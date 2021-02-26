@@ -26,7 +26,6 @@ const config = {
 // auth router attaches /login, /logout, and /callback routes to the baseURL
 app.use(auth(config));
 
-
 // express middleware
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
@@ -68,5 +67,6 @@ app.get('/', (request, response) => {
 
 // start server
 app.listen(PORT, () => {
+    console.log(`Base url: ${config.baseURL}`);
     console.log(`Server is listening on ${PORT}`);
 });
